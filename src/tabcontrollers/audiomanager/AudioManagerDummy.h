@@ -40,6 +40,9 @@ public:
         getRecordingDevices() override;
     virtual std::vector<std::pair<std::string, std::string>>
         getPlaybackDevices() override;
+
+    virtual void disableDevice( const std::string& id ) override;
+    virtual void enableDevice( const std::string& id ) override;
 };
 
 } // namespace advsettings

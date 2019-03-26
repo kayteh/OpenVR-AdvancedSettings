@@ -691,4 +691,45 @@ HRESULT AudioManagerWindows::OnPropertyValueChanged( LPCWSTR,
     return S_OK;
 }
 
+void AudioManagerWindows::enableDevice( const std::string& id )
+{
+    std::lock_guard<std::recursive_mutex> lock( _mutex );
+
+    LPWSTR devId;
+    getWindowsDeviceHandle( id, &devId );
+
+    policyConfig->SetEndpointVisibility( devId, 1 );
+}
+
+void AudioManagerWindows::disableDevice( const std::string& id )
+{
+    std::lock_guard<std::recursive_mutex> lock( _mutex );
+
+    LPWSTR devId;
+    getWindowsDeviceHandle( id, &devId );
+
+    policyConfig->SetEndpointVisibility( devId, 0 );
+}
+
+void AudioManagerWindows::getWindowsDeviceHandle ( const std::string& id, LPWSTR* devId )
+{
+    if ( !audioDeviceEnumerator ) {
+        return;
+    }
+
+    auto dev = getDevice( audioDeviceEnumerator, id );
+    if ( !dev )
+    {
+        LOG( WARNING ) << "Could not find playback device \"" << id
+                        << "\".";
+        return;
+    }
+
+    if ( dev->GetId( devId ) <= 0 ) {
+        LOG( WARNING ) << "GetId was <= 0 for device \"" << id
+                << "\".";
+        return;
+    }
+}
+
 } // namespace advsettings

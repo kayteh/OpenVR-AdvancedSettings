@@ -7,6 +7,7 @@
 #include <endpointvolume.h>
 #include <IPolicyConfig.h>
 #include <mutex>
+#include <chrono>
 
 // application namespace
 namespace advsettings
@@ -78,6 +79,9 @@ public:
     virtual HRESULT OnPropertyValueChanged( LPCWSTR pwstrDeviceId,
                                             const PROPERTYKEY key ) override;
 
+    virtual void disableDevice( const std::string& id ) override;
+    virtual void enableDevice( const std::string& id ) override;
+
 private:
     IMMDeviceEnumerator* getAudioDeviceEnumerator();
     IPolicyConfig* getPolicyConfig();
@@ -93,6 +97,7 @@ private:
     std::string getDeviceId( IMMDevice* device );
     std::vector<std::pair<std::string, std::string>>
         getDevices( IMMDeviceEnumerator* deviceEnumerator, EDataFlow dataFlow );
+    void getWindowsDeviceHandle( const std::string& dev, LPWSTR* devId );
 };
 
 } // namespace advsettings

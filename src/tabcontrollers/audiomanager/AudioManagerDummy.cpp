@@ -130,4 +130,16 @@ std::vector<std::pair<std::string, std::string>>
     return {};
 }
 
+void AudioManagerDummy::enableDevice( const std::string& id )
+{
+    // noop
+    UNREFERENCED_PARAMETER( id );
+}
+
+void AudioManagerDummy::disableDevice( const std::string& id )
+{
+    // noop
+    UNREFERENCED_PARAMETER( id );
+}
+
 } // namespace advsettings

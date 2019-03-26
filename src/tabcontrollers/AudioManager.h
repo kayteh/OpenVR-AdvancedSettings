@@ -43,6 +43,10 @@ public:
         getRecordingDevices() = 0;
     virtual std::vector<std::pair<std::string, std::string>>
         getPlaybackDevices() = 0;
+
+    virtual void disableDevice( const std::string& id ) = 0;
+    virtual void enableDevice( const std::string& id ) = 0;
+
 };
 
 } // namespace advsettings
