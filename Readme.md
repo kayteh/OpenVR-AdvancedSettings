@@ -273,6 +273,8 @@ Allows users to temporarily move and rotate the center of the playspace. This al
 - **Playback Device**: Allows to select the playback device.
 - **Mirror Device**: Allows to select the mirror device, set its volume and to mute/unmute it.
 - **Microphone**: Allows to select the microphone device, set its volume and to mute/unmute it.
+- **F**: Forces this microphone as your default. This solves an issue in some games.
+  - **NOTE**: This may temporarily break VOIP clients like Discord and Teamspeak.
 - **Push-to-Talk**: Enable/disable push-to-talk. When push-to-talk is activated the microphone gets muted unless the Push To Talk action is activated.
 - **Show Notification**: Shows a notification icon in the headset when the Push To Talk action is activated.
 - **Push-to-Mute**: Inverse push-to-talk. The Microphone is unmuted by default and muted when the keybind is pressed.

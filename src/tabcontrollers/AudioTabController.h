@@ -166,6 +166,7 @@ public slots:
     void deleteAudioProfile( unsigned index );
 
     void setAudioProfileDefault( bool value, bool notify = true );
+    void forceCurrentRecordingDevice();
 
 signals:
     void playbackDeviceIndexChanged( int index );

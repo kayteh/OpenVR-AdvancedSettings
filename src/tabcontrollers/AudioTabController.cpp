@@ -399,6 +399,38 @@ void AudioTabController::setMicReversePtt( bool value, bool notify )
     }
 }
 
+void AudioTabController::forceCurrentRecordingDevice() 
+{
+    std::lock_guard<std::recursive_mutex> lock( eventLoopMutex );
+    // disable all but our current device. 
+    std::string currentDev = audioManager->getMicDevId();
+    std::vector<std::pair<std::string,std::string>> devices = audioManager->getRecordingDevices();
+    
+    // disable, wait, enable loops
+    for ( auto dev : devices ) 
+	{
+        std::string id = dev.first;
+        if ( id.compare( currentDev ) == 0 ) {
+            continue;
+        }
+
+        audioManager->disableDevice(id);
+    }
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(30));
+
+	for ( auto dev : devices )
+    {
+        std::string id = dev.first;
+        if ( id.compare( currentDev ) == 0 )
+        {
+            continue;
+        }
+
+        audioManager->enableDevice( id );
+    }
+}
+
 void AudioTabController::setAudioProfileDefault( bool value, bool notify )
 {
     std::lock_guard<std::recursive_mutex> lock( eventLoopMutex );

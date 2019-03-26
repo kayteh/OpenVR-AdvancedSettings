@@ -19,13 +19,24 @@ RowLayout {
     }
     MyComboBox {
         id: selector
-        Layout.maximumWidth: 850
-        Layout.minimumWidth: 850
-        Layout.preferredWidth: 850
+        Layout.maximumWidth: 790
+        Layout.minimumWidth: 790
+        Layout.preferredWidth: 790
         onActivated: {
             if (deviceIndex >= 0) {
                 AudioTabController.setMicDeviceIndex(currentIndex)
             }
+        }
+    }
+    MyPushButton2 {
+        id: audioMicSelectorForceDevice
+        text: " F "
+        Layout.maximumWidth: 40
+        Layout.minimumWidth: 40
+        Layout.preferredWidth: 40
+        Layout.leftMargin: 20
+        onClicked: {
+            AudioTabController.forceCurrentRecordingDevice()
         }
     }
     function getAudioDeviceList() {
